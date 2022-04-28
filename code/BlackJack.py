@@ -1,4 +1,7 @@
 from Cards import *
+from Player import *
+import time
+
 
 class Blackjack:
     blackjack = 21
@@ -10,21 +13,21 @@ class Blackjack:
 
     def __init__(self, player, decks):
         self.player = player
-        self.deck = self.merge_decks(decks) # ???
+        self.deck = self.Cards.merge_decks(decks)  # ???
 
     def play(self):
-        while len(self.deck) > self.minDeckSize: #??
+        while len(self.deck) > self.minDeckSize:  # ??
             print('\n')
             print("TYPE 'play' TO START NEW ROUND")
             line: str = input().lower()
-            if (line != "play"):
+            if line != "play":
                 return
             print('\n')
             self.play_round()
             self.player.reset_hand()
             self.delear.reset_hand()
             self.show_statistics()
-            #sleep
+            time.sleep(1500)
 
     def __play_round(self):
         self.dealer.draw_card(self.deck)
@@ -43,7 +46,7 @@ class Blackjack:
         while self.player.get_points() < self.blackjack:
             #
             print('\n')
-            #sleep
+            time.sleep(1500)
             print("Get a card? (y/n)")
             line = input().lower()
             if ("n" == line):
@@ -60,9 +63,30 @@ class Blackjack:
         check = True
         if self.player.get_points() >= self.blackjack:
             check = False
-
         return check
 
-    #def __round_results
+    def __round_results(self):
+        if self.player.get_points() == self.blackjack:
+            #
+            print("You got blackjack! You won!")
+        elif self.dealer.get_points() == self.blackjack:
+            #
+            print("Dealer got blackjack! Dealer won!")
+        elif self.player.get_points() > self.blackjack:
+            #
+            print("You got too much points! Dealer won!")
+        elif self.dealer.get_points() > self.blackjack:
+            #
+            print("Dealer got too much points! You won!")
+        elif self.player.get_points() > self.dealer.get_points() && self.player.get_points() < self.blackjack:
+            #
+            print("You got more points than dealer! You won!")
+        elif self.dealer.get_points() > self.player.get_points() && self.dealer.get_points() < self.blackjack:
+            #
+            print("Dealer got more points than you! Dealer won!")
+        else:
+            print("Push!")
 
-    #def __show_statistics
+    def __show_statistics(self):
+        print("")       #
+        print("")       #
