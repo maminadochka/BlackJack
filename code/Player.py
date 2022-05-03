@@ -10,12 +10,12 @@ class Player:
         self.name = name
 
     def draw_card(self, deck):
-        if deck.size < 1:
+        if len(deck) < 1:
             print("No more card in the desk")
             return
-        card: Card = deck.remove(0)
-        self.hand.add(card)
-        print(self.name + "got" + card.tostring())
+        card = deck.pop(0)
+        self.hand.append(card)
+        print(self.name + " got " + card.get_name())
 
     def reset_hand(self):
         self.hand.clear()
@@ -25,11 +25,11 @@ class Player:
 
     def get_points(self):
         points = 0
-        # for (card : self.hand):
-        #
-        #
-        #
-        #
+        for card in self.hand:
+            if points > 10 and str(card.get_rank()) == 'A':
+                points += 1
+            else:
+                points += card.get_rank().get_value()
         return points
 
     def get_name(self): return self.name
@@ -38,4 +38,4 @@ class Player:
 
     def show_hand(self):
         print(self.name + ": " + self.hand)
-        print("Points: " + self.get_points())
+        print("Points: " + str(self.get_points()))

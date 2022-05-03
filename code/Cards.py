@@ -19,7 +19,7 @@ class Card:
         return self.rank
 
     def get_name(self):
-        return self.rank + self.suit
+        return self.rank.get_name() + self.suit.get_name()
 
 
 # deck's creator
